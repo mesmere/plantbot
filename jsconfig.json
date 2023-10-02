@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "target": "es6"
+    },
+    "include": [
+        "src/**/*",
+        "node_modules/discord-api-types/**/*",
+        "node_modules/discord.js/src/**/*"
+    ]
+}
