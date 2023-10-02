@@ -3,7 +3,10 @@
     "nodemon": "^3.0.1"
   },
   "dependencies": {
-    "discord.js": "^14.13.0"
+    "bufferutil": "^4.0.7",
+    "discord.js": "^14.13.0",
+    "utf-8-validate": "^6.0.3",
+    "zlib-sync": "^0.1.8"
   },
   "type": "module"
 }
