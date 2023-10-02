@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "discord.js": "^14.13.0"
   }
 }
