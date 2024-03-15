@@ -1,12 +1,21 @@
 {
-  "devDependencies": {
-    "nodemon": "^3.0.1"
+  "type": "module",
+  "engines": {
+    "node": "~21"
   },
   "dependencies": {
-    "bufferutil": "^4.0.7",
-    "discord.js": "^14.13.0",
+    "bufferutil": "^4.0.8",
+    "discord.js": "^14.14.1",
     "utf-8-validate": "^6.0.3",
-    "zlib-sync": "^0.1.8"
+    "zlib-sync": "^0.1.9"
   },
-  "type": "module"
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "nodemon": "^3.1.0"
+  },
+  "scripts": {
+    "test": "node --test 'src/**/*.test.js'",
+    "lint": "npx eslint src/",
+    "start": "nodemon --env-file=.env src/main.js"
+  }
 }

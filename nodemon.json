@@ -1,0 +1,12 @@
+{
+  "watch": [
+    ".env",
+    "src"
+  ],
+  "ignore": [
+    "*.test.js",
+    "*-test.js",
+    "*_test.js",
+    "**/test/**"
+  ]
+}
