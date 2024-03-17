@@ -31,6 +31,7 @@ jobs:
             type=sha
             type=ref,event=branch
             type=ref,event=tag
+            type=raw,value=latest,enable={{is_default_branch}}
           # metadata-action pulls repo metadata from the REST API but GitHub doesn't detect our license 🥴
           labels: |
             org.opencontainers.image.licenses=BSD-2-Clause-Patent
@@ -46,4 +47,3 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           annotations: ${{ steps.meta.outputs.annotations }}
-#          outputs: type=image,name=${{ github.repository }},push=true
