@@ -41,6 +41,8 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
+          # provenance attestations break the ghcr UI https://github.com/orgs/community/discussions/45969
+          provenance: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           annotations: ${{ steps.meta.outputs.annotations }}
