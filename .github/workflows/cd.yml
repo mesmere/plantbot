@@ -22,11 +22,11 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/metadata-action@v5
         id: meta
+        env:
+          # ghcr.io looks for annotations in the image index rather than platform-specific image manifests
+          DOCKER_METADATA_ANNOTATIONS_LEVELS: index
         with:
           images: ghcr.io/${{ github.repository }}
-          env:
-            # ghcr.io looks for annotations in the image index rather than platform-specific image manifests
-            DOCKER_METADATA_ANNOTATIONS_LEVELS: index
           tags: |
             type=sha
             type=ref,event=branch
