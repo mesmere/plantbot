@@ -12,6 +12,8 @@
   "devDependencies": {
     "eslint": "^8.57.0",
     "eslint-config-prettier": "9.1.0",
+    "git-format-staged": "^3.1.1",
+    "husky": "^9.0.11",
     "nodemon": "^3.1.0",
     "prettier": "3.2.5"
   },
@@ -19,6 +21,7 @@
     "test": "node --test 'src/**/*.test.js'",
     "lint": "npx eslint src/",
     "format": "npx prettier src/ --write",
-    "start": "nodemon --env-file=.env src/main.js"
+    "start": "nodemon --env-file=.env src/main.js",
+    "prepare": "husky"
   }
 }

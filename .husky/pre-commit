@@ -1,0 +1,2 @@
+npx git-format-staged --no-write --formatter 'eslint --stdin --stdin-filename "{}" >&2' 'src/*.js'
+npx git-format-staged --no-write --formatter 'prettier --check --ignore-unknown --stdin-filepath "{}"' 'src/*'
