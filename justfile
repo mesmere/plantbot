@@ -1,13 +1,14 @@
-install-deps:
-  npm install
+install:
+  npm install --no-audit --no-fund
 
-test: install-deps
+test: install
   npm run test
 
-lint: install-deps
+lint: install
   npm run lint
 
 start: install-deps
+start: install
   npm run start
 
 docker-build:
