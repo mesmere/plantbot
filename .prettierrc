@@ -1,0 +1,5 @@
+{
+  arrowParens: "avoid",
+  embeddedLanguageFormatting: "off",
+  printWidth: 100
+}

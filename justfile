@@ -7,7 +7,9 @@ test: install
 lint: install
   npm run lint
 
-start: install-deps
+format: install
+  npm run format
+
 start: install
   npm run start
 
