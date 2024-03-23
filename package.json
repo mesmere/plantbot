@@ -3,10 +3,16 @@
   "engines": {
     "node": "~21"
   },
+  "imports": {
+    "#root/*": "./src/*"
+  },
   "dependencies": {
     "bufferutil": "^4.0.8",
     "discord.js": "^14.14.1",
+    "is-plain-obj": "^4.1.0",
+    "temporal-polyfill": "^0.2.3",
     "utf-8-validate": "^6.0.3",
+    "winston": "^3.12.0",
     "zlib-sync": "^0.1.9"
   },
   "devDependencies": {
@@ -21,6 +27,8 @@
     "test": "node --test 'src/**/*.test.js'",
     "lint": "npx eslint src/",
     "format": "npx prettier src/ --write",
+    "register": "node --env-file=.env src/register.js",
+    "debug": "node --inspect --env-file .env src/main.js",
     "start": "nodemon --env-file=.env src/main.js",
     "prepare": "husky"
   }

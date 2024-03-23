@@ -17,4 +17,5 @@ LABEL org.opencontainers.image.description="A lightweight general-purpose modera
 LABEL org.opencontainers.image.licenses=BSD-2-Clause-Patent
 
 ENV NODE_ENV=production
-ENTRYPOINT ["node", "src/main.js"]
+ENTRYPOINT ["node"]
+CMD ["src/main.js"]
