@@ -4,29 +4,36 @@ plantbot is a lightweight general-purpose moderation bot for Discord mod teams.
 
 ## Features
 
-* Literally nothing. 🤪
+* 👥 Send messages anonymously as plantbot, making mod decisions less personal!
+* 🔎 Actions are logged to an audit channel for admin review.
 
-## Deployment
+## Production deployment
 
-*Requires: Docker*
+*Requirements: Docker.*
 
-1. Go to the [Discord developer portal](https://discord.com/developers/applications) and create a new bot. Make your new bot private (plantbot only works on a single guild at a time anyway) and give it the "message content" privileged intent. Finally, add it to your guild by going to the following URL (replace `YOUR_APPLICATION_ID` with the bot's actual application ID):
+1. Create a new bot in the [Discord developer portal](https://discord.com/developers/applications). Make your bot private and give it the "message content" and "server members" privileged intents. Finally, add it to your guild:
 
 ```
-https://discord.com/oauth2/authorize?client_id=YOUR_APPLICATION_ID&permissions=8&scope=bot
+https://discord.com/oauth2/authorize?client_id=YOUR-APPLICATION-ID&permissions=8&scope=bot
 ```
 
-2. Create a file named `.env` based on the example config ([`.env.example`](/.env.example)) and fill in values for **all** configuration options. You may need to create new channels and roles to populate some of the variables, e.g. a `#plantbot-logs` channel or an isolation role.
+Be sure to replace `YOUR-APPLICATION-ID` with your actual application ID from the Bot tab of the developer portal.
 
-3. Run the following command in the same directory to launch a Docker container from the latest prebuilt image:
+2. Create a file named `.env` based on the example config [`.env.example`](/.env.example), and fill in values for all of the configuration options. You may need to create new channels and roles in order to populate some of the variables, like a `#plantbot-logs` channel or an isolation role.
+
+3. Run the following to launch plantbot using the latest prebuilt Docker image:
 
 ```sh
 docker run -d --restart always --env-file .env ghcr.io/mesmere/plantbot:latest
 ```
 
-## Docker build
+plantbot logs to stdout, which is picked up by Docker. Production logs should be small but you may still want to [configure a proper logging driver](https://docs.docker.com/config/containers/logging/configure/) so that logs don't accumulate in a single json file forever.
 
-GitHub will auto-build a multiarch Docker image for every commit pushed to `main`. If you'd prefer to build your own Docker image locally, there are targets provided in [the `justfile`](/justfile):
+## Docker local build
+
+*Requirements: Docker, [`docker-buildx`](https://github.com/docker/buildx), [`just`](https://github.com/casey/just).*
+
+GitHub builds a multiarch Docker image for every commit merged to `main`. If you'd prefer to build and run your own image locally, there are targets provided in the [`justfile`](/justfile):
 
 ```sh
 just docker-build
@@ -36,18 +43,20 @@ just docker-kill
 
 ## Development
 
-*Requires: nodejs/npm of [the correct version](/.node-version) (use `nodenv` or `nvm`)*
-*Optional: Python and a C++ toolchain to build native modules*
+*Requirements: Node.js + npm (use `nodenv` to install [the correct version](/.node-version)).*  
+*Optional: Python to run pre-commit hooks.*  
+*Optional: Python and a C++ toolchain to build native modules.*
 
-1. Create a bot following the same instructions as in [the deployment section](#Deployment).
+1. Create a bot following the same instructions as in [the deployment section](#production-deployment).
 
-2. Check out the plantbot source repository and set up your configuration:
+2. Check out the plantbot source repository and copy `.env.example` to `.env`:
 
 ```sh
 git clone git@github.com:mesmere/plantbot.git && cd plantbot
 cp .env.example .env
-vi .env
 ```
+
+Make sure you set values for all of the configuration variables in your `.env` file.
 
 3. Install dependencies and build native modules:
 
@@ -55,20 +64,43 @@ vi .env
 npm install
 ```
 
-4. Start the server:
+4. Register plantbot's command specs with Discord so that they can be pushed out to clients:
 
 ```sh
-npm run start
+npm run register
 ```
 
-The start script runs plantbot with nodemon so the server will restart automatically when the code changes.
+The `register` step is performed automatically on startup when running [in production](https://nodejs.org/en/learn/getting-started/nodejs-the-difference-between-development-and-production), but for development the process is manual to give you additional control over how you spend your **200 command-creations per guild per day** rate limit. You can re-run the `register` script any time that you want to push a modified command spec from [`/src/commands/`](/src/commands).
+
+5. Start the server:
+
+```sh
+npm start
+```
+
+This runs plantbot with [nodemon](https://github.com/remy/nodemon) so the server will restart automatically when the code changes.
+
+### Pre-commit hooks
+
+Husky sets up git pre-commit hooks which will stop you from committing anything that doesn't pass eslint and prettier checks. You should install/enable plugins for those in your editor, but you can also fix issues manually:
+
+* `npx eslint --fix src/`
+* `npx prettier src/ --write`
+
+Passing these checks is required to merge a PR. Still, remember that you can always bypass pre-commit hooks locally with `git commit --no-verify`.
 
 ## Troubleshooting
 
-**Q. What if I'm trying to do development on Windows and can't build native modules? (node-gyp errors)**
+**Q. What if I'm trying to do development on Windows and can't build native modules (`node-gyp` errors) or can't run the pre-commit hooks (`git-format-staged` errors)?**
 
-**A.** Ideally install the needed tools on your system somehow in order to keep dev as close as possible to production. That being said, native modules are technically optional and the bot should still work if you remove the following dependencies - but **do not** commit your modified `package.json`:
+**A.** Native modules are optional and the bot should still work locally if you remove the following dependencies - but _do not_ commit your modified `package.json`:
 
 * `bufferutil`
 * `utf-8-validate`
 * `zlib-sync`
+
+You should install Python to get pre-commit hooks working but as a last resort you can permanently disable them locally by removing the `"prepare": "husky"` entry from your `package.json` and running:
+
+```sh
+git config --unset core.hooksPath
+```
