@@ -35,6 +35,10 @@ client.once(Events.ClientReady, async readyClient => {
 });
 
 client.on(Events.InteractionCreate, async interaction => {
+  if (!interaction.isChatInputCommand() && !interaction.isContextMenuCommand()) {
+    return;
+  }
+
   const command = commands[interaction.commandName];
   if (command === undefined) {
     logger.error(
