@@ -1,12 +1,14 @@
 import SayCommand from "#root/commands/say.js";
 import ReplyCommand from "#root/commands/reply.js";
 import StatusCommand from "#root/commands/status.js";
+import SlowmodeCommand from "#root/commands/slowmode.js";
 import isPlainObject from "is-plain-obj";
 
 const commands = {
   [SayCommand.spec.name]: SayCommand,
   [ReplyCommand.spec.name]: ReplyCommand,
   [StatusCommand.spec.name]: StatusCommand,
+  [SlowmodeCommand.spec.name]: SlowmodeCommand,
 };
 
 export default commands;

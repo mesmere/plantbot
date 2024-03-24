@@ -4,9 +4,10 @@ plantbot is a lightweight general-purpose moderation bot for Discord mod teams.
 
 ## Features
 
-* 👥 Send messages anonymously as plantbot, making mod decisions less personal!
-* 💬 Set plantbot's rich presence status!
-* 🔎 Actions are logged to an audit channel for admin review.
+* 👥 Send messages **anonymously**, making mod actions less personal!
+* 🐢 Let junior mods **control slowmode** without giving them delete channel permissions!
+* 💬 Set plantbot's **rich presence** status!
+* 🔎 Actions are logged to an **audit channel** for admin review.
 
 ## Production deployment
 
