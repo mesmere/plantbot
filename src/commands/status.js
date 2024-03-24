@@ -38,7 +38,7 @@ export default {
     );
 
     // Set the bot user's presence activity
-    await interaction.client.user.setActivity(activity, { type: type });
+    await interaction.client.user.setActivity(activity, { type });
     await interaction.reply({ content: "Status set. 👍", ephemeral: true });
     setTimeout(
       () => interaction.deleteReply(),
