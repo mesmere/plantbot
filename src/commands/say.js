@@ -40,6 +40,6 @@ export default {
       .setFooter({
         text: `#${interaction.channel.name} • ${prettyDate}`,
       });
-    await logChannel.send({ embeds: [logMessageEmbed] });
+    await logChannel.send({ embeds: [logMessageEmbed], allowedMentions: { parse: [] } });
   },
 };
