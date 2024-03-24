@@ -35,6 +35,12 @@ client.once(Events.ClientReady, async readyClient => {
 });
 
 client.on(Events.InteractionCreate, async interaction => {
+  const interactionJson = JSON.stringify(
+    interaction.toJSON(),
+    (_, v) => (typeof v === "bigint" ? v.toString() : v),
+    2
+  );
+  logger.debug(`Received interaction:\n${interactionJson}`);
   if (!interaction.isChatInputCommand() && !interaction.isContextMenuCommand()) {
     return;
   }
@@ -78,4 +84,5 @@ async function exit(signal) {
   process.exit();
 }
 
+logger.info("Logging in to Discord gateway...");
 client.login(process.env.TOKEN);
