@@ -17,6 +17,8 @@ export default {
     logger.debug(
       `${interaction.user.username} used 'say' in ${interaction.channel.name}:\n${message}`
     );
+
+    // Send the message in the channel the command was used in
     const messageSendResult = await interaction.channel.send(message);
     await interaction.reply({ content: "Message sent. 👍", ephemeral: true });
     setTimeout(
@@ -24,6 +26,7 @@ export default {
       Temporal.Duration.from({ seconds: 2 }).total("millisecond")
     );
 
+    // Send a log message in the log channel
     const logChannel = await interaction.guild.channels.fetch(process.env.LOG_CHANNEL_ID);
     const prettyDate = Temporal.Instant.fromEpochMilliseconds(
       interaction.createdTimestamp
