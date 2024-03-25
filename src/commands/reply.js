@@ -7,6 +7,7 @@ import {
   TextInputBuilder,
   TextInputStyle,
   ActionRowBuilder,
+  MessageContextMenuCommandInteraction,
 } from "discord.js";
 import { Temporal } from "temporal-polyfill";
 import logger from "#root/logs.js";
@@ -17,6 +18,7 @@ export default {
     .setType(ApplicationCommandType.Message)
     .toJSON(),
 
+  /** @param {MessageContextMenuCommandInteraction} interaction */
   async handle(interaction) {
     logger.debug(
       `${interaction.user.username} used 'reply' to message ${interaction.targetMessage.url}`

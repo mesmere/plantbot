@@ -2,6 +2,7 @@ import process from "node:process";
 import {
   SlashCommandBuilder,
   EmbedBuilder,
+  ChatInputCommandInteraction,
   ChannelType,
   OverwriteType,
   PermissionFlagsBits,
@@ -24,6 +25,7 @@ export default {
     )
     .toJSON(),
 
+  /** @param {ChatInputCommandInteraction} interaction */
   async handle(interaction) {
     const member = interaction.options.getMember("member");
     const reason = interaction.options.getString("reason");

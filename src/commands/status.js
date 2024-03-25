@@ -1,5 +1,10 @@
 import process from "node:process";
-import { SlashCommandBuilder, EmbedBuilder, ActivityType } from "discord.js";
+import {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  ActivityType,
+  ChatInputCommandInteraction,
+} from "discord.js";
 import { Temporal } from "temporal-polyfill";
 import logger from "#root/logs.js";
 
@@ -30,6 +35,7 @@ export default {
     )
     .toJSON(),
 
+  /** @param {ChatInputCommandInteraction} interaction */
   async handle(interaction) {
     const type = interaction.options.getInteger("type");
     const activity = interaction.options.getString("activity");
@@ -38,7 +44,7 @@ export default {
     );
 
     // Set the bot user's presence activity
-    await interaction.client.user.setActivity(activity, { type });
+    interaction.client.user.setActivity(activity, { type });
     await interaction.reply({ content: "Status set. 👍", ephemeral: true });
     setTimeout(
       () => interaction.deleteReply(),

@@ -1,5 +1,5 @@
 import process from "node:process";
-import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
+import { SlashCommandBuilder, EmbedBuilder, ChatInputCommandInteraction } from "discord.js";
 import { Temporal } from "temporal-polyfill";
 import logger from "#root/logs.js";
 
@@ -24,6 +24,7 @@ export default {
     )
     .toJSON(),
 
+  /** @param {ChatInputCommandInteraction} interaction */
   async handle(interaction) {
     const timeout = interaction.options.getInteger("timeout");
     const reason = interaction.options.getString("reason");
