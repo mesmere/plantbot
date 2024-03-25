@@ -4,10 +4,11 @@ plantbot is a lightweight general-purpose moderation bot for Discord mod teams.
 
 ## Features
 
-* 👥 Send messages **anonymously**, making mod actions less personal!
-* 🐢 Let junior mods **control slowmode** without giving them delete channel permissions!
-* 💬 Set plantbot's **rich presence** status!
-* 🔎 Actions are logged to an **audit channel** for admin review.
+* 👥 `/say` messages anonymously, making mod team actions less personal!
+* 🔐 `/isolate` a problem user to a single channel so that they can't delete their message history!
+* 🐢 Control `/slowmode` without giving junior staff full delete-channel permissions!
+* 💬 Set plantbot's rich presence `/status`!
+* 🔎 Actions are logged to an audit channel for admin review.
 
 ## Production deployment
 
@@ -92,6 +93,10 @@ Husky sets up git pre-commit hooks which will stop you from committing anything 
 Passing these checks is required to merge a PR. Still, remember that you can always bypass pre-commit hooks locally with `git commit --no-verify`.
 
 ## Troubleshooting
+
+**Q. Why do I get permission errors (`DiscordAPIError[50013]`) when trying to `/isolate` a member?**
+
+**A.** Discord initially adds plantbot's bot role to the bottom of your guild's role list. Even though the role has administrator permissions, it still can't add or remove roles higher than itself in the role list. This should probably be considered a bug in Discord's permissions model, but you can work around it by just reordering the roles so that plantbot is near the top.
 
 **Q. What if I'm trying to do development on Windows and can't build native modules (`node-gyp` errors) or can't run the pre-commit hooks (`git-format-staged` errors)?**
 
