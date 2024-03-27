@@ -84,6 +84,7 @@ export default {
           url: replySendResult.url,
           iconURL: interaction.member.displayAvatarURL({ size: 128 }),
         })
+        .setColor(interaction.member.displayColor)
         .setFooter({ text: `#${interaction.channel.name} • ${prettyDate}` })
         .setThumbnail("attachment://speaking.png");
       await logChannel.send({

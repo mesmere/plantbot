@@ -61,9 +61,8 @@ export default {
         name: `@${interaction.user.username} (${interaction.user.id})`,
         iconURL: interaction.member.displayAvatarURL({ size: 128 }),
       })
-      .setFooter({
-        text: `#${interaction.channel.name} • ${prettyDate}`,
-      })
+      .setColor(interaction.member.displayColor)
+      .setFooter({ text: `#${interaction.channel.name} • ${prettyDate}` })
       .setThumbnail("attachment://traffic-light.png");
     await logChannel.send({
       embeds: [logMessageEmbed],

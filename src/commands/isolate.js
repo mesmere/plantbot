@@ -93,6 +93,7 @@ export default {
         name: `@${interaction.user.username} (${interaction.user.id})`,
         iconURL: interaction.member.displayAvatarURL({ size: 128 }),
       })
+      .setColor(interaction.member.displayColor)
       .setFooter({ text: prettyDate })
       .setThumbnail("attachment://stop-sign.png");
     await logChannel.send({
