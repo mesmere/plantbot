@@ -18,23 +18,23 @@ plantbot is a lightweight general-purpose moderation bot for Discord mod teams.
 
 1. Create a new bot in the [Discord developer portal](https://discord.com/developers/applications). Make your bot private and give it the "message content" and "server members" privileged intents. Finally, add it to your guild:
 
-```
-https://discord.com/oauth2/authorize?client_id=YOUR-APPLICATION-ID&permissions=8&scope=bot
-```
+   ```
+   https://discord.com/oauth2/authorize?client_id=YOUR-APPLICATION-ID&permissions=8&scope=bot
+   ```
 
-Be sure to replace `YOUR-APPLICATION-ID` with your actual application ID from the Bot tab of the developer portal.
+   Be sure to replace `YOUR-APPLICATION-ID` with your actual application ID from the Bot tab of the developer portal.
 
-Discord automatically creates a bot role for plantbot, but it puts this new role at the bottom of the role list. This means that plantbot will be unable to take moderator action against any user with _any role_. Drag the plantbot role up to the top of the role list.
+   Discord automatically creates a bot role for plantbot, but it puts this new role at the bottom of the role list. This means that plantbot will be unable to take moderator action against any user with _any role_. Drag the plantbot role up to the top of the role list.
 
 2. Create a file named `.env` based on the example config [`.env.example`](/.env.example), and fill in values for all of the configuration options. You may need to create new channels and roles in order to populate some of the variables, like a `#plantbot-logs` channel or an isolation role.
 
 3. Run the following to launch plantbot using the latest prebuilt Docker image:
 
-```sh
-docker run -d --restart always --env-file .env ghcr.io/mesmere/plantbot:latest
-```
+   ```sh
+   docker run -d --restart always --env-file .env ghcr.io/mesmere/plantbot:latest
+   ```
 
-plantbot logs to stdout, which is picked up by Docker. Production logs should be small but you may still want to [configure a proper logging driver](https://docs.docker.com/config/containers/logging/configure/) so that logs don't accumulate in a single json file forever.
+   plantbot logs to stdout, which is picked up by Docker. Production logs should be small but you may still want to [configure a proper logging driver](https://docs.docker.com/config/containers/logging/configure/) so that logs don't accumulate in a single json file forever.
 
 ## Docker local build
 
@@ -58,34 +58,34 @@ just docker-kill
 
 2. Check out the plantbot source repository and copy `.env.example` to `.env`:
 
-```sh
-git clone git@github.com:mesmere/plantbot.git && cd plantbot
-cp .env.example .env
-```
+   ```sh
+   git clone git@github.com:mesmere/plantbot.git && cd plantbot
+   cp .env.example .env
+   ```
 
-Make sure you set values for all of the configuration variables in your `.env` file.
+   Make sure you set values for all of the configuration variables in your `.env` file.
 
 3. Install dependencies and build native modules:
 
-```sh
-npm install
-```
+   ```sh
+   npm install
+   ```
 
 4. Register plantbot's command specs with Discord so that they can be pushed out to clients:
 
-```sh
-npm run register
-```
+   ```sh
+   npm run register
+   ```
 
-The `register` step is performed automatically on startup when running [in production](https://nodejs.org/en/learn/getting-started/nodejs-the-difference-between-development-and-production), but for development the process is manual to give you additional control over how you spend your **200 command-creations per guild per day** rate limit. You can re-run the `register` script any time that you want to push a modified command spec from [`/src/commands/`](/src/commands).
+   The `register` step is performed automatically on startup when running [in production](https://nodejs.org/en/learn/getting-started/nodejs-the-difference-between-development-and-production), but for development the process is manual to give you additional control over how you spend your **200 command-creations per guild per day** rate limit. You can re-run the `register` script any time that you want to push a modified command spec from [`/src/commands/`](/src/commands).
 
 5. Start the server:
 
-```sh
-npm start
-```
+   ```sh
+   npm start
+   ```
 
-This runs plantbot with [nodemon](https://github.com/remy/nodemon) so the server will restart automatically when the code changes.
+   This runs plantbot with [nodemon](https://github.com/remy/nodemon) so the server will restart automatically when the code changes.
 
 ### Pre-commit hooks
 
