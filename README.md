@@ -23,6 +23,8 @@ https://discord.com/oauth2/authorize?client_id=YOUR-APPLICATION-ID&permissions=8
 
 Be sure to replace `YOUR-APPLICATION-ID` with your actual application ID from the Bot tab of the developer portal.
 
+Discord automatically creates a bot role for plantbot, but it puts this new role at the bottom of the role list. This means that plantbot will be unable to take moderator action against any user with _any role_. Drag the plantbot role up to the top of the role list.
+
 2. Create a file named `.env` based on the example config [`.env.example`](/.env.example), and fill in values for all of the configuration options. You may need to create new channels and roles in order to populate some of the variables, like a `#plantbot-logs` channel or an isolation role.
 
 3. Run the following to launch plantbot using the latest prebuilt Docker image:
