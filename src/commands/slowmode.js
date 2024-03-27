@@ -38,7 +38,7 @@ export default {
     );
 
     // Set the slowmode timeout
-    await interaction.channel.setRateLimitPerUser(timeout, reason || undefined);
+    await interaction.channel.setRateLimitPerUser(timeout, reason ?? undefined);
     await interaction.reply({ content: "Slowmode set. 👍", ephemeral: true });
     setTimeout(
       () => interaction.deleteReply(),
@@ -49,9 +49,7 @@ export default {
     const logChannel = await interaction.guild.channels.fetch(process.env.LOG_CHANNEL_ID);
     const prettyDate = Temporal.Instant.fromEpochMilliseconds(
       interaction.createdTimestamp
-    ).toString({
-      smallestUnit: "second",
-    });
+    ).toString({ smallestUnit: "second" });
     const prettyDescription =
       timeout === 0 ? "Disabled slowmode." : `Set slowmode to ${timeout} seconds.`;
     const thumbnailFile = new AttachmentBuilder("assets/traffic-light.png");

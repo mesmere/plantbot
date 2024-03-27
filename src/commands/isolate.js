@@ -42,7 +42,7 @@ export default {
     const rolesToGive = process.env.ISO_GIVE_ROLE_IDS.split(",").filter(x => x);
     const currentRoles = [...member.roles.cache.keys()];
     const newRoles = currentRoles.filter(k => !rolesToTake.includes(k)).concat(rolesToGive);
-    await member.roles.set([...new Set(newRoles)], reason);
+    await member.roles.set([...new Set(newRoles)], reason ?? undefined);
 
     // Create an isolation channel
     const staffRoleIds = process.env.STAFF_ROLE_IDS.split(",").filter(x => x);
@@ -69,10 +69,10 @@ export default {
       type: ChannelType.GuildText,
       parent: process.env.MOD_CHANNELS_CATEGORY_ID,
       permissionOverwrites,
-      reason,
+      reason: reason ?? undefined,
     });
     isoChannel.send(
-      `${member} Please wait here. **This is not a ban** but we need some space to figure out what's going on without ` +
+      `${member} Please wait- **this is not a ban** but we need some space to figure out what's going on without ` +
         `people editing/deleting their messages. Take a break for now while staff works on resolving this.`
     );
 

@@ -22,7 +22,7 @@ export default {
   /** @param {MessageContextMenuCommandInteraction} interaction */
   async handle(interaction) {
     logger.debug(
-      `${interaction.user.username} used 'reply' to message ${interaction.targetMessage.url}`
+      `${interaction.user.username} used 'reply' to message ${interaction.targetMessage.id} in #${interaction.channel.name}`
     );
 
     const uuid = crypto.randomUUID();
@@ -73,9 +73,7 @@ export default {
       const logChannel = await interaction.guild.channels.fetch(process.env.LOG_CHANNEL_ID);
       const prettyDate = Temporal.Instant.fromEpochMilliseconds(
         interaction.createdTimestamp
-      ).toString({
-        smallestUnit: "second",
-      });
+      ).toString({ smallestUnit: "second" });
       const thumbnailFile = new AttachmentBuilder("assets/speaking.png");
       const logMessageEmbed = new EmbedBuilder()
         .setDescription(`↪️ ${interaction.targetMessage.member}\n${message}`)

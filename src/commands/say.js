@@ -21,7 +21,7 @@ export default {
   async handle(interaction) {
     const message = interaction.options.getString("message");
     logger.debug(
-      `${interaction.user.username} used 'say' in ${interaction.channel.name}:\n${message}`
+      `${interaction.user.username} used 'say' in #${interaction.channel.name}:\n${message}`
     );
 
     // Send the message in the channel the command was used in
@@ -36,9 +36,7 @@ export default {
     const logChannel = await interaction.guild.channels.fetch(process.env.LOG_CHANNEL_ID);
     const prettyDate = Temporal.Instant.fromEpochMilliseconds(
       interaction.createdTimestamp
-    ).toString({
-      smallestUnit: "second",
-    });
+    ).toString({ smallestUnit: "second" });
     const thumbnailFile = new AttachmentBuilder("assets/speaking.png");
     const logMessageEmbed = new EmbedBuilder()
       .setDescription(message)

@@ -56,9 +56,7 @@ export default {
     const logChannel = await interaction.guild.channels.fetch(process.env.LOG_CHANNEL_ID);
     const prettyDate = Temporal.Instant.fromEpochMilliseconds(
       interaction.createdTimestamp
-    ).toString({
-      smallestUnit: "second",
-    });
+    ).toString({ smallestUnit: "second" });
     const thumbnailFile = new AttachmentBuilder("assets/speech-balloon.png");
     const logMessageEmbed = new EmbedBuilder()
       .setDescription(
