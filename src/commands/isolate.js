@@ -1,6 +1,7 @@
 import process from "node:process";
 import {
   SlashCommandBuilder,
+  AttachmentBuilder,
   EmbedBuilder,
   ChatInputCommandInteraction,
   ChannelType,
@@ -84,6 +85,7 @@ export default {
       interaction.createdTimestamp
     ).toString({ smallestUnit: "second" });
     const description = `${member} was isolated to ${isoChannel}.`;
+    const stopSignFile = new AttachmentBuilder("assets/stop-sign.png");
     const logMessageEmbed = new EmbedBuilder()
       .setTitle(`${member.user.username} isolated!`)
       .setDescription(reason ? `${description}\nReason: ${reason}` : description)
@@ -92,7 +94,11 @@ export default {
         iconURL: interaction.member.displayAvatarURL({ size: 128 }),
       })
       .setFooter({ text: prettyDate })
-      .setThumbnail("https://files.catbox.moe/pzxzoe.png");
-    await logChannel.send({ embeds: [logMessageEmbed], allowedMentions: { parse: [] } });
+      .setThumbnail("attachment://stop-sign.png");
+    await logChannel.send({
+      embeds: [logMessageEmbed],
+      files: [stopSignFile],
+      allowedMentions: { parse: [] },
+    });
   },
 };
