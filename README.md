@@ -1,4 +1,4 @@
-# plantbot 🌱 ![CI status](https://github.com/mesmere/plantbot/actions/workflows/ci.yml/badge.svg)
+# plantbot 🌱 [![CI status](https://github.com/mesmere/plantbot/actions/workflows/ci.yml/badge.svg)](https://github.com/mesmere/plantbot/actions/workflows/ci.yml)
 
 plantbot is a lightweight general-purpose moderation bot for Discord mod teams.
 
