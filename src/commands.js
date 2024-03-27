@@ -4,6 +4,7 @@ import StatusCommand from "#root/commands/status.js";
 import SlowmodeCommand from "#root/commands/slowmode.js";
 import IsolateCommand from "#root/commands/isolate.js";
 import AttachmentsCommand from "#root/commands/attachments.js";
+import ImpersonateCommand from "#root/commands/impersonate.js";
 import isPlainObject from "is-plain-obj";
 
 const commands = {
@@ -13,6 +14,7 @@ const commands = {
   [SlowmodeCommand.spec.name]: SlowmodeCommand,
   [IsolateCommand.spec.name]: IsolateCommand,
   [AttachmentsCommand.spec.name]: AttachmentsCommand,
+  [ImpersonateCommand.spec.name]: ImpersonateCommand,
 };
 
 export default commands;
