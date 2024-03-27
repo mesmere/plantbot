@@ -1,5 +1,10 @@
 import process from "node:process";
-import { SlashCommandBuilder, EmbedBuilder, ChatInputCommandInteraction } from "discord.js";
+import {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  ChatInputCommandInteraction,
+  AttachmentBuilder,
+} from "discord.js";
 import { Temporal } from "temporal-polyfill";
 import logger from "#root/logs.js";
 
@@ -34,6 +39,7 @@ export default {
     ).toString({
       smallestUnit: "second",
     });
+    const thumbnailFile = new AttachmentBuilder("assets/speaking.png");
     const logMessageEmbed = new EmbedBuilder()
       .setDescription(message)
       .setAuthor({
@@ -41,9 +47,12 @@ export default {
         url: messageSendResult.url,
         iconURL: interaction.member.displayAvatarURL({ size: 128 }),
       })
-      .setFooter({
-        text: `#${interaction.channel.name} • ${prettyDate}`,
-      });
-    await logChannel.send({ embeds: [logMessageEmbed], allowedMentions: { parse: [] } });
+      .setFooter({ text: `#${interaction.channel.name} • ${prettyDate}` })
+      .setThumbnail("attachment://speaking.png");
+    await logChannel.send({
+      embeds: [logMessageEmbed],
+      files: [thumbnailFile],
+      allowedMentions: { parse: [] },
+    });
   },
 };

@@ -4,6 +4,7 @@ import {
   ApplicationCommandType,
   ModalBuilder,
   EmbedBuilder,
+  AttachmentBuilder,
   TextInputBuilder,
   TextInputStyle,
   ActionRowBuilder,
@@ -75,6 +76,7 @@ export default {
       ).toString({
         smallestUnit: "second",
       });
+      const thumbnailFile = new AttachmentBuilder("assets/speaking.png");
       const logMessageEmbed = new EmbedBuilder()
         .setDescription(`↪️ ${interaction.targetMessage.member}\n${message}`)
         .setAuthor({
@@ -82,10 +84,13 @@ export default {
           url: replySendResult.url,
           iconURL: interaction.member.displayAvatarURL({ size: 128 }),
         })
-        .setFooter({
-          text: `#${interaction.channel.name} • ${prettyDate}`,
-        });
-      await logChannel.send({ embeds: [logMessageEmbed], allowedMentions: { parse: [] } });
+        .setFooter({ text: `#${interaction.channel.name} • ${prettyDate}` })
+        .setThumbnail("attachment://speaking.png");
+      await logChannel.send({
+        embeds: [logMessageEmbed],
+        files: [thumbnailFile],
+        allowedMentions: { parse: [] },
+      });
     }
   },
 };

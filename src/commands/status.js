@@ -2,6 +2,7 @@ import process from "node:process";
 import {
   SlashCommandBuilder,
   EmbedBuilder,
+  AttachmentBuilder,
   ActivityType,
   ChatInputCommandInteraction,
 } from "discord.js";
@@ -58,6 +59,7 @@ export default {
     ).toString({
       smallestUnit: "second",
     });
+    const thumbnailFile = new AttachmentBuilder("assets/speech-balloon.png");
     const logMessageEmbed = new EmbedBuilder()
       .setDescription(
         `Updated plantbot's status.\n- Type: ${ActivityType[type]}\n- Activity: ${activity}`
@@ -66,9 +68,12 @@ export default {
         name: `@${interaction.user.username} (${interaction.user.id})`,
         iconURL: interaction.member.displayAvatarURL({ size: 128 }),
       })
-      .setFooter({
-        text: prettyDate,
-      });
-    await logChannel.send({ embeds: [logMessageEmbed], allowedMentions: { parse: [] } });
+      .setFooter({ text: prettyDate })
+      .setThumbnail("attachment://speech-balloon.png");
+    await logChannel.send({
+      embeds: [logMessageEmbed],
+      files: [thumbnailFile],
+      allowedMentions: { parse: [] },
+    });
   },
 };

@@ -85,7 +85,7 @@ export default {
       interaction.createdTimestamp
     ).toString({ smallestUnit: "second" });
     const description = `${member} was isolated to ${isoChannel}.`;
-    const stopSignFile = new AttachmentBuilder("assets/stop-sign.png");
+    const thumbnailFile = new AttachmentBuilder("assets/zipper-mouth.png");
     const logMessageEmbed = new EmbedBuilder()
       .setTitle(`${member.user.username} isolated!`)
       .setDescription(reason ? `${description}\nReason: ${reason}` : description)
@@ -97,7 +97,7 @@ export default {
       .setThumbnail("attachment://stop-sign.png");
     await logChannel.send({
       embeds: [logMessageEmbed],
-      files: [stopSignFile],
+      files: [thumbnailFile],
       allowedMentions: { parse: [] },
     });
   },

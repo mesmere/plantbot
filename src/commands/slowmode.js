@@ -1,5 +1,10 @@
 import process from "node:process";
-import { SlashCommandBuilder, EmbedBuilder, ChatInputCommandInteraction } from "discord.js";
+import {
+  SlashCommandBuilder,
+  AttachmentBuilder,
+  EmbedBuilder,
+  ChatInputCommandInteraction,
+} from "discord.js";
 import { Temporal } from "temporal-polyfill";
 import logger from "#root/logs.js";
 
@@ -29,7 +34,7 @@ export default {
     const timeout = interaction.options.getInteger("timeout");
     const reason = interaction.options.getString("reason");
     logger.debug(
-      `${interaction.user.username} used 'slowmode' in ${interaction.channel.name}: <${timeout}, ${reason}>`
+      `${interaction.user.username} used 'slowmode' in #${interaction.channel.name}: <${timeout}, ${reason}>`
     );
 
     // Set the slowmode timeout
@@ -49,6 +54,7 @@ export default {
     });
     const prettyDescription =
       timeout === 0 ? "Disabled slowmode." : `Set slowmode to ${timeout} seconds.`;
+    const thumbnailFile = new AttachmentBuilder("assets/traffic-light.png");
     const logMessageEmbed = new EmbedBuilder()
       .setDescription(reason ? `${prettyDescription}\nReason: ${reason}` : prettyDescription)
       .setAuthor({
@@ -57,7 +63,12 @@ export default {
       })
       .setFooter({
         text: `#${interaction.channel.name} • ${prettyDate}`,
-      });
-    await logChannel.send({ embeds: [logMessageEmbed], allowedMentions: { parse: [] } });
+      })
+      .setThumbnail("attachment://traffic-light.png");
+    await logChannel.send({
+      embeds: [logMessageEmbed],
+      files: [thumbnailFile],
+      allowedMentions: { parse: [] },
+    });
   },
 };
