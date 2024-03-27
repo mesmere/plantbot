@@ -3,6 +3,7 @@ import ReplyCommand from "#root/commands/reply.js";
 import StatusCommand from "#root/commands/status.js";
 import SlowmodeCommand from "#root/commands/slowmode.js";
 import IsolateCommand from "#root/commands/isolate.js";
+import AttachmentsCommand from "#root/commands/attachments.js";
 import isPlainObject from "is-plain-obj";
 
 const commands = {
@@ -11,6 +12,7 @@ const commands = {
   [StatusCommand.spec.name]: StatusCommand,
   [SlowmodeCommand.spec.name]: SlowmodeCommand,
   [IsolateCommand.spec.name]: IsolateCommand,
+  [AttachmentsCommand.spec.name]: AttachmentsCommand,
 };
 
 export default commands;

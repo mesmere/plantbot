@@ -7,6 +7,7 @@ plantbot is a lightweight general-purpose moderation bot for Discord mod teams.
 * 👥 `/say` messages anonymously, making mod team actions less personal!
 * 🔐 `/isolate` a problem user to a single channel so that they can't delete their message history!
 * 🐢 Control `/slowmode` without giving junior staff full delete-channel permissions!
+* 📎 Download all of a channel's `/attachments` in bulk!
 * 💬 Set plantbot's rich presence `/status`!
 * 🔎 Actions are logged to an audit channel for admin review.
 
